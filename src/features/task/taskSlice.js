@@ -23,13 +23,6 @@ export const getDataAsync = createAsyncThunk('task/getData', async () => {
   return await axiosGetData();
 });
 
-export const loadMoreDataAsync = createAsyncThunk(
-  'task/loadMoreData',
-  async () => {
-    return await axiosGetData();
-  }
-);
-
 export const filterDataAsync = createAsyncThunk(
   'task/filterData',
   async (payload) => {
@@ -71,13 +64,6 @@ export const taskSlice = createSlice({
     [getDataAsync.fulfilled]: (state, action) => {
       state.loading = false;
       state.value = action.payload;
-    },
-    [loadMoreDataAsync.pending]: (state, action) => {
-      state.loading = true;
-    },
-    [loadMoreDataAsync.fulfilled]: (state, action) => {
-      state.loading = false;
-      state.value.push(...action.payload);
     },
     [filterDataAsync.pending]: (state, action) => {
       state.loading = true;
