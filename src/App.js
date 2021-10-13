@@ -1,28 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  addDataAsync,
-  deleteItem,
-  filterDataAsync,
-  getDataAsync,
-  loadMoreDataAsync,
-} from './features/task/taskSlice';
-import {
-  Layout,
-  Menu,
-  Typography,
-  Button,
-  Table,
-  Modal,
-  Form,
-  Input,
-} from 'antd';
+import { deleteItem, getDataAsync } from './features/task/taskSlice';
+import { Layout, Menu, Typography, Button, Table } from 'antd';
 import 'antd/dist/antd.css';
 
 import Search from 'antd/lib/input/Search';
 import { recordExpression } from '@babel/types';
 import ModalForm from './components/ModalForm';
+import SearchFilterInput from './components/SearchFilterInput';
 
 const { Header, Content, Footer } = Layout;
 function App() {
@@ -96,16 +82,7 @@ function App() {
       >
         <div className="site-layout-background" style={{ padding: 24 }}>
           <ModalForm />
-
-          <Search
-            placeholder="filter"
-            onSearch={(value) => {
-              if (value.trim())
-                dispatch(filterDataAsync({ filter: value.trim() }));
-            }}
-            loading={loading}
-            enterButton
-          />
+          <SearchFilterInput />
           <Typography.Title>Total items: {data.length}</Typography.Title>
 
           <Table
