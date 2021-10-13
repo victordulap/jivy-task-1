@@ -35,12 +35,11 @@ function App() {
           <ModalForm />
           <SearchFilterInput />
           <Typography.Title>Total items: {data.length}</Typography.Title>
-
           <DataTable />
         </div>
       </Content>
       <Footer style={{ textAlign: 'center' }}>
-        Ant Design ©2018 Created by Ant UED
+        task-1-jivy ©2021 Created by Victor Dulap
       </Footer>
     </Layout>
   );
