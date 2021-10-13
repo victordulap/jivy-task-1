@@ -70,7 +70,7 @@ function App() {
             bordered
             dataSource={data}
             loading={loading}
-            renderItem={(item) => (
+            renderItem={(item, index) => (
               <List.Item>
                 <Card loading={loading} title={`Name: ${item.Name}`}>
                   <p>id: {item.id}</p>
@@ -82,7 +82,7 @@ function App() {
                   <Button
                     block
                     danger
-                    onClick={() => dispatch(deleteItem({ id: item.id }))}
+                    onClick={() => dispatch(deleteItem({ index }))}
                   >
                     delete
                   </Button>

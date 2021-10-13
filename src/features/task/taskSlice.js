@@ -43,10 +43,7 @@ export const taskSlice = createSlice({
   initialState,
   reducers: {
     deleteItem(state, action) {
-      const index = state.value.findIndex(
-        (item) => item.id === action.payload.id
-      );
-      state.value.splice(index, 1);
+      state.value.splice(action.payload.index, 1);
     },
   },
 
