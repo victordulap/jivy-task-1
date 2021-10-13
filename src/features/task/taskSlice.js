@@ -38,12 +38,26 @@ export const filterDataAsync = createAsyncThunk(
   }
 );
 
+export const addDataAsync = createAsyncThunk('task/addData', async () => {
+  // try {
+  //   const url = filter ? `${API_URL}?Name=${filter}` : API_URL;
+  //   const response = await axios.post(url, { ...action.payload.item });
+  //   return response.data;
+  // } catch (err) {
+  //   console.error(err);
+  //   throw new Error(err);
+  // }
+});
+
 export const taskSlice = createSlice({
   name: 'task',
   initialState,
   reducers: {
     deleteItem(state, action) {
-      state.value.splice(action.payload.index, 1);
+      const index = state.value.findIndex(
+        (item) => item.id === action.payload.id
+      );
+      state.value.splice(index, 1);
     },
   },
 

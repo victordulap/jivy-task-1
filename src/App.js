@@ -7,10 +7,11 @@ import {
   getDataAsync,
   loadMoreDataAsync,
 } from './features/task/taskSlice';
-import { Layout, Menu, Typography, List, Card, Button } from 'antd';
+import { Layout, Menu, Typography, List, Card, Button, Table } from 'antd';
 import 'antd/dist/antd.css';
 
 import Search from 'antd/lib/input/Search';
+import { recordExpression } from '@babel/types';
 
 const { Header, Content, Footer } = Layout;
 function App() {
@@ -25,6 +26,54 @@ function App() {
   const loadMore = () => {
     dispatch(loadMoreDataAsync());
   };
+
+  const columns = [
+    {
+      title: 'id',
+      dataIndex: 'id',
+      key: 'id',
+    },
+    {
+      title: 'Name',
+      dataIndex: 'Name',
+      key: 'Name',
+    },
+    {
+      title: 'Job',
+      dataIndex: 'Job',
+      key: 'Job',
+    },
+    {
+      title: 'City',
+      dataIndex: 'City',
+      key: 'City',
+    },
+    {
+      title: 'Email',
+      dataIndex: 'Email',
+      key: 'Email',
+    },
+    {
+      title: 'DateCreated',
+      dataIndex: 'DateCreated',
+      key: 'DateCreated',
+    },
+    {
+      title: 'Phone Number',
+      dataIndex: 'Phone Number',
+      key: 'Phone Number',
+    },
+
+    {
+      title: 'Action',
+      key: 'action',
+      render: (text, record) => (
+        <Button onClick={() => dispatch(deleteItem({ id: record.id }))} danger>
+          Delete {record.Name}
+        </Button>
+      ),
+    },
+  ];
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
@@ -52,31 +101,12 @@ function App() {
             enterButton
           />
           <Typography.Title>Total items: {data.length}</Typography.Title>
-          <List
-            header={<div>Header</div>}
-            grid={{ gutter: 16, column: 2 }}
-            bordered
+
+          <Table
             dataSource={data}
-            loading={loading}
-            renderItem={(item, index) => (
-              <List.Item>
-                <Card loading={loading} title={`Name: ${item.Name}`}>
-                  <p>id: {item.id}</p>
-                  <p>Job: {item.Job}</p>
-                  <p>City: {item.City}</p>
-                  <p>Email: {item.Email}</p>
-                  <p>DateCreated: {item.DateCreated}</p>
-                  <p>Phone Number: {item['Phone Number']}</p>
-                  <Button
-                    block
-                    danger
-                    onClick={() => dispatch(deleteItem({ index }))}
-                  >
-                    delete
-                  </Button>
-                </Card>
-              </List.Item>
-            )}
+            columns={columns}
+            pagination={{ pageSize: 5 }}
+            scroll={{ x: '150vh' }}
           />
         </div>
       </Content>
