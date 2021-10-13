@@ -7,21 +7,9 @@ import {
   getDataAsync,
   loadMoreDataAsync,
 } from './features/task/taskSlice';
-import {
-  Layout,
-  Menu,
-  Breadcrumb,
-  Spin,
-  Skeleton,
-  Typography,
-  List,
-  Avatar,
-  Card,
-  Button,
-} from 'antd';
+import { Layout, Menu, Typography, List, Card, Button } from 'antd';
 import 'antd/dist/antd.css';
 
-import { LoadingOutlined } from '@ant-design/icons';
 import Search from 'antd/lib/input/Search';
 
 const { Header, Content, Footer } = Layout;
@@ -32,7 +20,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getDataAsync());
-  }, []);
+  }, [dispatch]);
 
   const loadMore = () => {
     dispatch(loadMoreDataAsync());
