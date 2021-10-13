@@ -38,16 +38,19 @@ export const filterDataAsync = createAsyncThunk(
   }
 );
 
-export const addDataAsync = createAsyncThunk('task/addData', async () => {
-  // try {
-  //   const url = filter ? `${API_URL}?Name=${filter}` : API_URL;
-  //   const response = await axios.post(url, { ...action.payload.item });
-  //   return response.data;
-  // } catch (err) {
-  //   console.error(err);
-  //   throw new Error(err);
-  // }
-});
+export const addDataAsync = createAsyncThunk(
+  'task/addData',
+  async (payload) => {
+    try {
+      const response = await axios.post(API_URL, payload.item);
+      console.log(response.data);
+      return response.data;
+    } catch (err) {
+      console.error(err);
+      throw new Error(err);
+    }
+  }
+);
 
 export const taskSlice = createSlice({
   name: 'task',
@@ -82,6 +85,13 @@ export const taskSlice = createSlice({
     [filterDataAsync.fulfilled]: (state, action) => {
       state.loading = false;
       state.value = action.payload;
+    },
+    [addDataAsync.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [addDataAsync.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.value.push(action.payload);
     },
   },
 });
